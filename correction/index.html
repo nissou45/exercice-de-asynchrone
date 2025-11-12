@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="fr">
+	<head>
+		<meta charset="UTF-8" />
+		<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+		<title>Exercice de Groupe - Fetch API avec Pagination</title>
+		<link rel="stylesheet" href="style.css" />
+	</head>
+	<body>
+		<div class="container">
+			<h1>Exercice de Groupe - Appels Fetch avec Pagination</h1>
+
+			<div id="users-section">
+				<h2>Liste des Utilisateurs</h2>
+				<ul id="user-list"></ul>
+				<div class="pagination">
+					<button id="prev-button-users">Précédent</button>
+					<span id="page-number-users">Page 1</span>
+					<button id="next-button-users">Suivant</button>
+				</div>
+				<button id="load-all-users">Charger tous les utilisateurs</button>
+			</div>
+
+			<div id="posts-section">
+				<h2>Liste des Posts</h2>
+				<ul id="post-list"></ul>
+				<p
+					id="errorMessage"
+					style="display: none; color: red; font-weight: bold"></p>
+				<div class="pagination">
+					<button id="prev-button-posts">Précédent</button>
+					<span id="page-number-posts">Page 1</span>
+					<button id="next-button-posts">Suivant</button>
+				</div>
+				<button id="load-all-posts">Charger tous les posts</button>
+			</div>
+
+			<div id="comments-section">
+				<h2>Liste des Commentaires</h2>
+				<ul id="comment-list"></ul>
+				<div class="pagination">
+					<button id="prev-button-comments">Précédent</button>
+					<span id="page-number-comments">Page 1</span>
+					<button id="next-button-comments">Suivant</button>
+				</div>
+				<button id="load-all-comments">Charger tous les commentaires</button>
+			</div>
+		</div>
+
+		<script src="script.js"></script>
+	</body>
+</html>
