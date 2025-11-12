@@ -7,84 +7,87 @@
 
 //partie DE NISSRINE: UTILISATEURS:
 
-// Sélection des éléments HTML
-const zoneUtilisateurs = document.getElementById("user-list"); // zone d’affichage des utilisateurs
-const etiquettePage = document.getElementById("page-users"); // numéro de page
-const boutonPrecedent = document.getElementById("prev-users"); // bouton précédent
-const boutonSuivant = document.getElementById("next-users"); // bouton suivant
-const boutonToutAfficher = document.getElementById("all-users"); // bouton tout afficher
+// Liste d'utilisateurs : https://jsonplaceholder.typicode.com/users
+// Membre 1 - Récupérer et afficher les utilisateurs (5 utilisateurs avec pagination)
 
-// Variables pour la pagination
-let utilisateurs = []; // tableau des utilisateurs
-let pageActuelle = 1; // page en cours
-const utilisateursParPage = 5; // 5 utilisateurs par page
-let afficherTout = false; // false = pagination, true = tout afficher
+// Partie DE NISSRINE : UTILISATEURS
 
-// 1️Fonction pour aller chercher les utilisateurs
-async function recupererUtilisateurs() {
-  const reponse = await fetch("https://jsonplaceholder.typicode.com/users");
-  utilisateurs = await reponse.json();
+// Liste d'utilisateurs : https://jsonplaceholder.typicode.com/users
+// Membre 1 - Récupérer et afficher les utilisateurs (5 utilisateurs avec pagination)
 
-  pageActuelle = 1;
-  afficherTout = false;
-  afficherUtilisateurs();
-}
+// Partie DE NISSRINE : UTILISATEURS
 
-// 2️ Fonction pour afficher les utilisateurs (sans innerHTML)
-function afficherUtilisateurs() {
-  // On vide d’abord le contenu précédent
-  zoneUtilisateurs.textContent = "";
+// Elément du DOM à manipulerconst bouton = document.getElementById("all-users");
+// Liste d'utilisateurs : https://jsonplaceholder.typicode.com/users
+// Membre 1 - Récupérer et afficher les utilisateurs (5 utilisateurs avec pagination)
 
-  let utilisateursAAfficher = [];
+// Partie DE NISSRINE : UTILISATEURS
 
-  if (afficherTout) {
-    utilisateursAAfficher = utilisateurs;
-    etiquettePage.textContent = `Tous (${utilisateurs.length})`;
-  } else {
-    const debut = (pageActuelle - 1) * utilisateursParPage;
-    const fin = debut + utilisateursParPage;
-    utilisateursAAfficher = utilisateurs.slice(debut, fin);
+// Éléments du DOM à manipuler
+const bouton = document.getElementById("all-users");
+const affichage = document.getElementById("user-list");
+const suivant = document.getElementById("next-users");
+const precedent = document.getElementById("prev-users");
+const listeUtilisateurs = document.createElement("ul");
 
-    const totalPages = Math.ceil(utilisateurs.length / utilisateursParPage);
-    etiquettePage.textContent = `Page ${pageActuelle} / ${totalPages}`;
+// Variables
+let Utilisateurs = [];
+
+// Récupération de l'API et affichage
+document.addEventListener("DOMContentLoaded", async () => {
+  await getUtilisateur();
+
+  // ➜ On affiche les 5 premiers utilisateurs
+  for (const element of Utilisateurs.slice(0, 5)) {
+    console.log(element);
+    const listeElement = document.createElement("li");
+    listeElement.textContent = element.name;
+    listeUtilisateurs.appendChild(listeElement);
   }
 
-  // Pour chaque utilisateur → créer un élément <p>
-  utilisateursAAfficher.forEach((utilisateur) => {
-    const paragraphe = document.createElement("p");
+  // ➜ On ajoute la liste au HTML
+  affichage.appendChild(listeUtilisateurs);
 
-    const nom = document.createElement("b");
-    nom.textContent = utilisateur.name;
-
-    const email = document.createTextNode(" — " + utilisateur.email);
-
-    paragraphe.appendChild(nom);
-    paragraphe.appendChild(email);
-
-    zoneUtilisateurs.appendChild(paragraphe);
+  // ➜ Bouton "Charger tous les utilisateurs"
+  bouton.addEventListener("click", async () => {
+    await getUtilisateur();
+    listeUtilisateurs.innerHTML = "";
+    for (const element of Utilisateurs.slice(0, 5)) {
+      const listeElement = document.createElement("li");
+      listeElement.textContent = element.name;
+      listeUtilisateurs.appendChild(listeElement);
+    }
+    affichage.appendChild(listeUtilisateurs);
   });
+
+  //  Bouton "Suivant"
+  suivant.addEventListener("click", async () => {
+    await getUtilisateur();
+    listeUtilisateurs.innerHTML = "";
+    for (const element of Utilisateurs.slice(5, 10)) {
+      const listeElement = document.createElement("li");
+      listeElement.textContent = element.name;
+      listeUtilisateurs.appendChild(listeElement);
+    }
+
+    affichage.appendChild(listeUtilisateurs);
+  });
+
+  // ➜ Bouton "Précédent"
+  precedent.addEventListener("click", async () => {
+    await getUtilisateur();
+    listeUtilisateurs.innerHTML = "";
+    for (const element of Utilisateurs.slice(0, 5)) {
+      const listeElement = document.createElement("li");
+      listeElement.textContent = element.name;
+      listeUtilisateurs.appendChild(listeElement);
+    }
+    affichage.appendChild(listeUtilisateurs);
+  });
+});
+
+// ➜ Fonction pour récupérer les utilisateurs depuis l’API
+async function getUtilisateur() {
+  const reponse = await fetch("https://jsonplaceholder.typicode.com/users");
+  Utilisateurs = await reponse.json(); // on enlève "const"
 }
-
-// 3️ Gestion des boutons
-boutonSuivant.addEventListener("click", () => {
-  const totalPages = Math.ceil(utilisateurs.length / utilisateursParPage);
-  if (pageActuelle < totalPages) {
-    pageActuelle++;
-    afficherUtilisateurs();
-  }
-});
-
-boutonPrecedent.addEventListener("click", () => {
-  if (pageActuelle > 1) {
-    pageActuelle--;
-    afficherUtilisateurs();
-  }
-});
-
-boutonToutAfficher.addEventListener("click", () => {
-  afficherTout = true;
-  afficherUtilisateurs();
-});
-
-// 4️ Lancer la récupération des données au démarrage
-recupererUtilisateurs();
