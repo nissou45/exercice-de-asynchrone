@@ -1,0 +1,26 @@
+body {
+  display: flex;
+  justify-content: center;
+  font-family: "Poppins", sans-serif;
+  background: #d48989;
+}
+
+section {
+  background: rgb(235, 184, 184);
+  border-radius: 8px;
+  padding: 20px;
+  box-shadow: 0 2px 8px rgba(0, 0, 0, 0.1);
+  max-width: 600px;
+}
+
+button {
+  margin: 5px;
+  padding: 8px 16px;
+  border: none;
+  border-radius: 6px;
+  cursor: pointer;
+}
+
+button:hover {
+  background: #662323;
+}

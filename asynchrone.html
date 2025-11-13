@@ -7,5 +7,25 @@
     <link rel="stylesheet" href="asynchrone.css" />
     <script src="asynchrone.js" defer></script>
   </head>
-  <body></body>
+  <body>
+    <section id="users">
+      <h2>Liste des utilisateurs</h2>
+
+      <!-- message d’état -->
+      <p id="users-status"></p>
+
+      <!-- zone où on affichera les utilisateurs -->
+      <div id="user-list"></div>
+
+      <!-- pagination -->
+      <div class="pagination">
+        <button id="prev-users">Précédent</button>
+        <span id="page-users">Page 1</span>
+        <button id="next-users">Suivant</button>
+      </div>
+
+      <!-- bouton pour tout afficher -->
+      <button id="all-users">Charger tous les utilisateurs</button>
+    </section>
+  </body>
 </html>
